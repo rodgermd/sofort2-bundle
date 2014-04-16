@@ -371,5 +371,4 @@ class PaymentRequestModel
         return $this->reason;
     }
 
-
-} 
+}

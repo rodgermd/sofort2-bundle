@@ -44,4 +44,4 @@ class PaymentEvent extends Event
     {
         return $this->response;
     }
-} 
+}

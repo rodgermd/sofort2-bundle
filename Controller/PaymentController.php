@@ -67,4 +67,4 @@ class PaymentController extends Controller
     {
         return $this->container->get('sofort.manager');
     }
-} 
+}
