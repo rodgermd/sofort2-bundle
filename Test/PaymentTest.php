@@ -109,6 +109,7 @@ class PaymentTest extends WebTestCase
      */
     public function testPayment()
     {
+        $this->container->get('router')->getContext()->setHost('www.google.com');
         $manager = $this->container->get('sofort.manager');
         $model = new PaymentRequestModel();
         $model

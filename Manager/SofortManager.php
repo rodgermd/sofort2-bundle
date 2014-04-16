@@ -76,8 +76,8 @@ class SofortManager
     {
         $this->validate($model);
 
-        $this->api->setParameters(array_merge($this->api->getParameters(), array('su' => '')));
         $this->api
+            ->setCustomerProtection(true)
             ->setAmount($model->getAmount())
             ->setSenderAccount($model->getBankCode(), $model->getAccountNumber(), $model->getName())
             ->setSenderCountryCode($model->getCountry())
