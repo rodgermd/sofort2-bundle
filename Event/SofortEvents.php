@@ -18,4 +18,5 @@ class SofortEvents
     const SUCCESS      = 'sofort.success';
     const ABORT        = 'sofort.abort';
     const NOTIFICATION = 'sofort.notification';
+    const DETAILS      = 'sofort.transaction.details';
 }

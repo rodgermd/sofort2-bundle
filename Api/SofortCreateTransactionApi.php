@@ -11,11 +11,11 @@ namespace Sofort\Api;
 use Sofort\SofortLibMultipay;
 
 /**
- * Class SofortApi
+ * Class SofortCreateTransactionApi
  *
  * @package Sofort\Api
  */
-class SofortApi extends SofortLibMultipay
+class SofortCreateTransactionApi extends SofortLibMultipay
 {
 
     /**

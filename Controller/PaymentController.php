@@ -25,7 +25,7 @@ class PaymentController extends Controller
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/success", name="sofort.success")
+     * @Route("/success/{id}", name="sofort.success")
      */
     public function successAction(Request $request)
     {
@@ -38,7 +38,7 @@ class PaymentController extends Controller
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/abort", name="sofort.abort")
+     * @Route("/abort/{id}", name="sofort.abort")
      */
     public function abortAction(Request $request)
     {

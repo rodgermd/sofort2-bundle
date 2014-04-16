@@ -119,7 +119,7 @@ class PaymentTest extends WebTestCase
             ->setAccountNumber('88888888')
             ->setBankCode('12345678');
 
-        $response = $manager->pay($model);
+        $response = $manager->createTransaction($model);
 
         $this->assertTrue($response instanceof RedirectResponse);
     }

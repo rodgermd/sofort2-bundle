@@ -70,4 +70,11 @@ abstract class SofortAbstractEventSubscriber implements EventSubscriberInterface
      * @param PaymentEvent $event
      */
     abstract public function onNotification(PaymentEvent $event);
+
+    /**
+     * On transaction details event
+     *
+     * @param TransactionDetailsEvent $event
+     */
+    abstract public function onTransactionDetails(TransactionDetailsEvent $event);
 }
