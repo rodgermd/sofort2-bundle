@@ -33,7 +33,7 @@ class SofortManager
     protected $eventDispatcher;
     /** @var \Symfony\Bundle\FrameworkBundle\Routing\Router */
     protected $router;
-    /** @var \Symfony\Component\Validator\Validator  */
+    /** @var \Symfony\Component\Validator\Validator */
     protected $validator;
 
     /**
@@ -59,9 +59,9 @@ class SofortManager
      */
     public function setDefaultRoutes()
     {
-        $this->api->setSuccessUrl($this->router->generate('sofort.success'));
-        $this->api->setAbortUrl($this->router->generate('sofort.abort'));
-        $this->api->setNotificationUrl($this->router->generate('sofort.notification'));
+        $this->api->setSuccessUrl($this->router->generate('sofort.success', array(), true));
+        $this->api->setAbortUrl($this->router->generate('sofort.abort', array(), true));
+        $this->api->setNotificationUrl($this->router->generate('sofort.notification', array(), true));
     }
 
     /**
@@ -76,6 +76,7 @@ class SofortManager
     {
         $this->validate($model);
 
+        $this->api->setParameters(array_merge($this->api->getParameters(), array('su' => '')));
         $this->api
             ->setAmount($model->getAmount())
             ->setSenderAccount($model->getBankCode(), $model->getAccountNumber(), $model->getName())
@@ -92,6 +93,7 @@ class SofortManager
         if ($this->api->isError()) {
             throw new SofortPaymentException($this->api->getError());
         }
+
 
         return new RedirectResponse($this->api->getPaymentUrl());
     }

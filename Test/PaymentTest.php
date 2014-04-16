@@ -13,6 +13,7 @@ use Sofort\Model\PaymentRequestModel;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator;
@@ -111,14 +112,16 @@ class PaymentTest extends WebTestCase
         $manager = $this->container->get('sofort.manager');
         $model = new PaymentRequestModel();
         $model
-            ->setAmount(10)
+            ->setAmount(0.1)
             ->setReason('test reason')
             ->setCountry('DE')
             ->setName('Max Mustermann')
             ->setAccountNumber('88888888')
             ->setBankCode('12345678');
 
-        $manager->pay($model);
+        $response = $manager->pay($model);
+
+        $this->assertTrue($response instanceof RedirectResponse);
     }
 
     /**
