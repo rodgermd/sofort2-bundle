@@ -12,7 +12,7 @@
   ],
   "autoload":{
     "psr-0":{
-      "Sofort":""
+      "Sofort":"/"
     }
   },
   "target-dir":"Rodgermd/sofort2-bundle"
