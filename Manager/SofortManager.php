@@ -74,7 +74,7 @@ class SofortManager
     public function pay(PaymentRequestModel $model)
     {
         $this->validate($model);
-        
+
         $this->api
             ->setAmount($model->getAmount())
             ->setSenderAccount($model->getBankCode(), $model->getAccountNumber(), $model->getName())
