@@ -1,19 +1,22 @@
 {
-  "name":"rodgermd/sofort2-bundle",
-  "description":"Symfony 2 bundle for sofort payment PHP library",
-  "homepage":"https://github.com/rodgermd/sofort2-bundle",
-  "type":"symfony-bundle",
-  "license":"MIT",
-  "authors":[
+  "name"       : "rodgermd/sofort2-bundle",
+  "description": "Symfony 2 bundle for sofort payment PHP library",
+  "homepage"   : "https://github.com/rodgermd/sofort2-bundle",
+  "type"       : "symfony-bundle",
+  "license"    : "MIT",
+  "authors"    : [
     {
-      "name":"Alexander Murashov",
-      "email":"rodger@ladela.com"
+      "name" : "Alexander Murashov",
+      "email": "rodger@ladela.com"
     }
   ],
-  "autoload":{
-    "psr-0":{
-      "Sofort":""
+  "require"    : {
+    "rodgermd/sofort2-lib": "@stable"
+  },
+  "autoload"   : {
+    "psr-0": {
+      "Sofort": ""
     }
   },
-  "target-dir":"Sofort"
+  "target-dir" : "Sofort"
 }

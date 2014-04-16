@@ -33,6 +33,7 @@ class SofortManager
     protected $eventDispatcher;
     /** @var \Symfony\Bundle\FrameworkBundle\Routing\Router */
     protected $router;
+    /** @var \Symfony\Component\Validator\Validator  */
     protected $validator;
 
     /**
