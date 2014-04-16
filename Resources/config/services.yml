@@ -1,1 +1,7 @@
 services:
+  sofort.api:
+    class: Sofort\Api\SofortApi
+    arguments: [%sofort.key%]
+  sofort.manager:
+    class: Sofort\Manager\SofortManager
+    arguments: [@sofort.api, @event_dispatcher]
