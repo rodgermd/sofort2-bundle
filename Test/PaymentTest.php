@@ -8,7 +8,6 @@
 
 namespace Sofort\Test;
 
-
 use Sofort\Model\PaymentRequestModel;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
@@ -144,4 +143,4 @@ class PaymentTest extends WebTestCase
 
         return false;
     }
-} 
+}

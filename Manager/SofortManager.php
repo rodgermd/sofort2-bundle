@@ -94,7 +94,6 @@ class SofortManager
             throw new SofortPaymentException($this->api->getError());
         }
 
-
         return new RedirectResponse($this->api->getPaymentUrl());
     }
 
@@ -169,4 +168,4 @@ class SofortManager
             throw new ValidatorException($errors->__toString());
         }
     }
-} 
+}

@@ -10,5 +10,6 @@ namespace Sofort;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class SofortBundle extends Bundle {
+class SofortBundle extends Bundle
+{
 }
