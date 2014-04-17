@@ -1,4 +1,6 @@
 services:
+  sofort.manager.routes:
+    class: Sofort\Manager\SofortRoutesManager
   sofort.manager:
     class: Sofort\Manager\SofortManager
-    arguments: [@event_dispatcher, @router, @validator]
+    arguments: [@event_dispatcher, @sofort.manager.routes, @validator]

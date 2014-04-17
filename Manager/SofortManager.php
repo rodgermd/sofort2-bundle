@@ -38,8 +38,8 @@ class SofortManager
     protected $requestApi;
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
     protected $eventDispatcher;
-    /** @var \Symfony\Bundle\FrameworkBundle\Routing\Router */
-    protected $router;
+    /** @var SofortRoutesManager */
+    protected $routesManager;
     /** @var \Symfony\Component\Validator\Validator */
     protected $validator;
 
@@ -47,15 +47,13 @@ class SofortManager
      * Object constructor
      *
      * @param EventDispatcherInterface $eventDispatcher
-     * @param Router                   $router
+     * @param SofortRoutesManager      $routesManager
      * @param Validator                $validator
-     *
-     * @internal param \Sofort\Api\SofortApi $api
      */
-    public function __construct(EventDispatcherInterface $eventDispatcher, Router $router, Validator $validator)
+    public function __construct(EventDispatcherInterface $eventDispatcher, SofortRoutesManager $routesManager, Validator $validator)
     {
         $this->eventDispatcher = $eventDispatcher;
-        $this->router          = $router;
+        $this->routesManager   = $routesManager;
         $this->validator       = $validator;
     }
 
@@ -87,9 +85,7 @@ class SofortManager
         }
         $api = new SofortCreateTransactionApi($this->config_key);
 
-        $api->setSuccessUrl($this->router->generate('sofort.success', array('id' => '-TRANSACTION-'), true));
-        $api->setAbortUrl($this->router->generate('sofort.abort', array('id' => '-TRANSACTION-'), true));
-        $api->setNotificationUrl($this->router->generate('sofort.notification', array(), true));
+        $this->routesManager->setTransactionUrls($api);
 
         $api
             ->setCustomerProtection(true)
@@ -215,4 +211,6 @@ class SofortManager
             throw new ValidatorException($errors->__toString());
         }
     }
+
+
 }
