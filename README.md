@@ -69,6 +69,7 @@ $redirectResponse = $manager->createTransaction($model);
 ```
 
 When calling $manager->createTransaction($model), the 'sofort.transaction.created' event is fired with TransactionCreateEvent argument.
+
 The argument contains $response and $transactionId properties
 
 ### request transaction details
@@ -77,7 +78,8 @@ The argument contains $response and $transactionId properties
 $response = $manager->requestTransaction($transactionId);
 ```
 
-The $response is ant instance of SofortLibTransactionData
+The $response is ant instance of SofortLibTransactionData.
+
 On successfull details retrieve, the event SofortEvents::DETAILS is fired with TransactionDetailsEvent as argument
 
 
