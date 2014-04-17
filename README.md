@@ -83,33 +83,33 @@ On successfull details retrieve, the event SofortEvents::DETAILS is fired with T
 
 SofortLibTransactionData methods available:
 
-..getAmount
-..getAmountRefunded
-..getCount
-..getPaymentMethod
-..getConsumerProtection
-..getStatus
-..getStatusReason
-..getStatusModifiedTime
-..getLanguageCode
-..getCurrency
-..getTransaction
-..getReason
-..getUserVariable
-..getTime
-..getProjectId
-..getRecipientHolder
-..getRecipientAccountNumber
-..getRecipientBankCode
-..getRecipientCountryCode
-..getRecipientBankName
-..getRecipientBic
-..getRecipientIban
-..getSenderHolder
-..getSenderAccountNumber
-..getSenderHolder
-..getSenderBankCode
-..getSenderCountryCode
-..getSenderBankName
-..getSenderBic
-..getSenderIban
+* getAmount
+* getAmountRefunded
+* getCount
+* getPaymentMethod
+* getConsumerProtection
+* getStatus
+* getStatusReason
+* getStatusModifiedTime
+* getLanguageCode
+* getCurrency
+* getTransaction
+* getReason
+* getUserVariable
+* getTime
+* getProjectId
+* getRecipientHolder
+* getRecipientAccountNumber
+* getRecipientBankCode
+* getRecipientCountryCode
+* getRecipientBankName
+* getRecipientBic
+* getRecipientIban
+* getSenderHolder
+* getSenderAccountNumber
+* getSenderHolder
+* getSenderBankCode
+* getSenderCountryCode
+* getSenderBankName
+* getSenderBic
+* getSenderIban
