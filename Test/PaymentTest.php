@@ -9,6 +9,7 @@
 namespace Sofort\Test;
 
 use Sofort\Model\PaymentRequestModel;
+use Sofort\Status\Status;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\DependencyInjection\Container;
@@ -110,7 +111,7 @@ class PaymentTest extends WebTestCase
     {
         $this->container->get('router')->getContext()->setHost('www.google.com');
         $manager = $this->container->get('sofort.manager');
-        $model = new PaymentRequestModel();
+        $model   = new PaymentRequestModel();
         $model
             ->setAmount(0.1)
             ->setReason('test reason')
@@ -122,6 +123,26 @@ class PaymentTest extends WebTestCase
         $response = $manager->createTransaction($model);
 
         $this->assertTrue($response instanceof RedirectResponse);
+    }
+
+    /**
+     * Tests request transaction
+     */
+    public function testTransactionDetails()
+    {
+        $manager       = $this->container->get('sofort.manager');
+        $transactionId = '84116-181122-534E849F-919D'; // test transaction id, can be failed?
+        $response      = $manager->requestTransaction($transactionId);
+
+        $this->assertEquals($transactionId, $response->getTransaction());
+        $this->assertEquals(1, $response->getAmount());
+        $this->assertEquals(Status::PENDING, $response->getStatus()); // Should be pending because of test shop
+        $this->assertEquals('EUR', $response->getCurrency());
+        $this->assertEquals('23456789', $response->getSenderAccountNumber());
+        $this->assertEquals('00000', $response->getSenderBankCode());
+        $this->assertEquals('DE06000000000023456789', $response->getSenderIban());
+        $this->assertEquals('SFRTDE20XXX', $response->getSenderBic());
+        $this->assertEquals('Max Mustermann', $response->getSenderHolder());
     }
 
     /**

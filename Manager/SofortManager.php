@@ -12,6 +12,7 @@ use Sofort\Api\SofortCreateTransactionApi;
 use Sofort\Api\SofortRequestTransactionApi;
 use Sofort\Event\PaymentEvent;
 use Sofort\Event\SofortEvents;
+use Sofort\Event\TransactionDetailsEvent;
 use Sofort\Exception\SofortPaymentException;
 use Sofort\Model\PaymentRequestModel;
 use Sofort\Model\TransactionRequestModel;
@@ -103,6 +104,9 @@ class SofortManager
      * Requests transaction details
      *
      * @param string $id
+     *
+     * @throws \Sofort\Exception\SofortPaymentException
+     * @return \Sofort\Api\SofortCreateTransactionApi|\Sofort\Api\SofortRequestTransactionApi
      */
     public function requestTransaction($id)
     {
@@ -113,7 +117,9 @@ class SofortManager
             throw new SofortPaymentException($this->requestApi->getError());
         }
 
-        $this->eventDispatcher->dispatch(SofortEvents::DETAILS, $this->requestApi);
+        $this->eventDispatcher->dispatch(SofortEvents::DETAILS, new TransactionDetailsEvent($this->requestApi));
+
+        return $this->requestApi;
     }
 
     /**
