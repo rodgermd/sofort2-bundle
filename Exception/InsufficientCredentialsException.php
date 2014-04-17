@@ -16,4 +16,4 @@ namespace Sofort\Exception;
 class InsufficientCredentialsException extends SofortPaymentException
 {
     protected $message = 'Sofort config key is not defined';
-} 
+}

@@ -13,6 +13,6 @@ namespace Sofort\Model;
  *
  * @package Sofort\Model
  */
-class TransactionRequestModel {
-
-} 
+class TransactionRequestModel
+{
+}

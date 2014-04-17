@@ -8,7 +8,6 @@
 
 namespace Sofort\Event;
 
-
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -71,4 +70,4 @@ class TransactionCreateEvent extends Event
         return $this->transactionId;
     }
 
-} 
+}

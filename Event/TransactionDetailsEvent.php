@@ -8,7 +8,6 @@
 
 namespace Sofort\Event;
 
-
 use Sofort\Api\SofortRequestTransactionApi;
 use Symfony\Component\EventDispatcher\Event;
 
@@ -42,4 +41,4 @@ class TransactionDetailsEvent extends Event
     {
         return $this->api;
     }
-} 
+}

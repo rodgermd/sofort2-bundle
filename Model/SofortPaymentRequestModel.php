@@ -10,7 +10,7 @@ namespace Sofort\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class PaymentRequestModel
+class SofortPaymentRequestModel
 {
     /**
      * @var float
@@ -88,7 +88,7 @@ class PaymentRequestModel
      *
      * @param string $accountNumber
      *
-     * @return $this
+     * @return SofortPaymentRequestModel
      */
     public function setAccountNumber($accountNumber)
     {
@@ -112,7 +112,7 @@ class PaymentRequestModel
      *
      * @param float $amount
      *
-     * @return $this
+     * @return SofortPaymentRequestModel
      */
     public function setAmount($amount)
     {
@@ -136,7 +136,7 @@ class PaymentRequestModel
      *
      * @param string $bankCode
      *
-     * @return $this
+     * @return SofortPaymentRequestModel
      */
     public function setBankCode($bankCode)
     {
@@ -160,7 +160,7 @@ class PaymentRequestModel
      *
      * @param string $bic
      *
-     * @return $this
+     * @return SofortPaymentRequestModel
      */
     public function setBic($bic)
     {
@@ -184,7 +184,7 @@ class PaymentRequestModel
      *
      * @param string $country
      *
-     * @return $this
+     * @return SofortPaymentRequestModel
      */
     public function setCountry($country)
     {
@@ -208,7 +208,7 @@ class PaymentRequestModel
      *
      * @param string $currency
      *
-     * @return $this
+     * @return SofortPaymentRequestModel
      */
     public function setCurrency($currency)
     {
@@ -232,7 +232,7 @@ class PaymentRequestModel
      *
      * @param string $email
      *
-     * @return $this
+     * @return SofortPaymentRequestModel
      */
     public function setEmail($email)
     {
@@ -256,7 +256,7 @@ class PaymentRequestModel
      *
      * @param string $iban
      *
-     * @return $this
+     * @return SofortPaymentRequestModel
      */
     public function setIban($iban)
     {
@@ -280,7 +280,7 @@ class PaymentRequestModel
      *
      * @param string $name
      *
-     * @return $this
+     * @return SofortPaymentRequestModel
      */
     public function setName($name)
     {
@@ -304,7 +304,7 @@ class PaymentRequestModel
      *
      * @param string $phone
      *
-     * @return $this
+     * @return SofortPaymentRequestModel
      */
     public function setPhone($phone)
     {
@@ -328,7 +328,7 @@ class PaymentRequestModel
      *
      * @param boolean $protection
      *
-     * @return $this
+     * @return SofortPaymentRequestModel
      */
     public function setProtection($protection)
     {
@@ -352,7 +352,7 @@ class PaymentRequestModel
      *
      * @param string $reason
      *
-     * @return $this
+     * @return SofortPaymentRequestModel
      */
     public function setReason($reason)
     {

@@ -20,5 +20,4 @@ class Status extends AbstractClassConstants
     const RECEIVED = 'received';
     const REFUNDED = 'refunded';
 
-
-} 
+}

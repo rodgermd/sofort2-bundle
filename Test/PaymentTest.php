@@ -8,10 +8,8 @@
 
 namespace Sofort\Test;
 
-use Sofort\Event\SofortEvents;
-use Sofort\Event\TransactionCreateEvent;
 use Sofort\Exception\InsufficientCredentialsException;
-use Sofort\Model\PaymentRequestModel;
+use Sofort\Model\SofortPaymentRequestModel;
 use Sofort\Status\Status;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
@@ -34,8 +32,6 @@ class PaymentTest extends WebTestCase
     protected $container;
     /** @var  Validator */
     protected $validator;
-    /** @var  string */
-    protected $transactionId;
 
     /**
      * Setup the test
@@ -52,7 +48,7 @@ class PaymentTest extends WebTestCase
      */
     public function testModel()
     {
-        $model = new PaymentRequestModel();
+        $model = new SofortPaymentRequestModel();
 
         $errors = $this->validator->validate($model);
 
@@ -126,7 +122,7 @@ class PaymentTest extends WebTestCase
         }
 
         $manager->setConfigKey($this->container->getParameter('sofort.test_key'));
-        $response = $manager->createTransaction($model);
+        $response = $manager->createTransaction($model)->getResponse();
 
         $this->assertTrue($response instanceof RedirectResponse);
     }
@@ -141,16 +137,9 @@ class PaymentTest extends WebTestCase
         $model   = $this->createModel();
         $manager->setConfigKey($this->container->getParameter('sofort.test_key'));
 
-        $this->container->get('event_dispatcher')->addListener(
-            SofortEvents::CREATED,
-            function (TransactionCreateEvent $event) {
-                $this->transactionId = $event->getTransactionId();
-            }
-        );
+        $event = $manager->createTransaction($model);
 
-        $manager->createTransaction($model);
-
-        $manager->requestTransaction($this->transactionId);
+        $manager->requestTransaction($event->getTransactionId());
         $this->assertTrue(true, 'Exception not thrown');
 
 //        $this->assertEquals($this->transactionId, $response->getTransaction());
@@ -187,11 +176,11 @@ class PaymentTest extends WebTestCase
     /**
      * Creates request model
      *
-     * @return PaymentRequestModel
+     * @return SofortPaymentRequestModel
      */
     protected function createModel()
     {
-        $model = new PaymentRequestModel();
+        $model = new SofortPaymentRequestModel();
         $model
             ->setAmount(0.1)
             ->setReason('test reason')

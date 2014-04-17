@@ -26,4 +26,4 @@ abstract class AbstractClassConstants
 
         return $reflection->getConstants();
     }
-} 
+}

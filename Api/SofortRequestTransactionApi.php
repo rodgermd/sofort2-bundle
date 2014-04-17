@@ -8,7 +8,6 @@
 
 namespace Sofort\Api;
 
-
 use Sofort\SofortLibTransactionData;
 
 /**
@@ -16,6 +15,6 @@ use Sofort\SofortLibTransactionData;
  *
  * @package Sofort\Api
  */
-class SofortRequestTransactionApi extends SofortLibTransactionData {
-
-} 
+class SofortRequestTransactionApi extends SofortLibTransactionData
+{
+}

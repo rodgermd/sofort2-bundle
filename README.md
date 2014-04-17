@@ -65,7 +65,7 @@ $model
 
 // Call manager
 
-$redirectResponse = $manager->createTransaction($model);
+$event = $manager->createTransaction($model);
 ```
 
 When calling $manager->createTransaction($model), the 'sofort.transaction.created' event is fired with TransactionCreateEvent argument.

@@ -16,13 +16,9 @@ use Sofort\Event\TransactionCreateEvent;
 use Sofort\Event\TransactionDetailsEvent;
 use Sofort\Exception\InsufficientCredentialsException;
 use Sofort\Exception\SofortPaymentException;
-use Sofort\Model\PaymentRequestModel;
-use Sofort\Model\TransactionRequestModel;
+use Sofort\Model\SofortPaymentRequestModel;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Exception\ValidatorException;
 use Symfony\Component\Validator\Validator;
@@ -76,13 +72,13 @@ class SofortManager
     /**
      * Makes pay request
      *
-     * @param PaymentRequestModel $model
+     * @param SofortPaymentRequestModel $model
      *
      * @throws \Sofort\Exception\SofortPaymentException
      * @throws \Sofort\Exception\InsufficientCredentialsException
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return TransactionCreateEvent
      */
-    public function createTransaction(PaymentRequestModel $model)
+    public function createTransaction(SofortPaymentRequestModel $model)
     {
         $this->validate($model);
 
@@ -116,7 +112,7 @@ class SofortManager
         $event = new TransactionCreateEvent($api->getTransactionId(), $api->getPaymentUrl());
         $this->eventDispatcher->dispatch(SofortEvents::CREATED, $event);
 
-        return $event->getResponse();
+        return $event;
     }
 
     /**
