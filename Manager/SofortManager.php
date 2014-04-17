@@ -12,7 +12,9 @@ use Sofort\Api\SofortCreateTransactionApi;
 use Sofort\Api\SofortRequestTransactionApi;
 use Sofort\Event\PaymentEvent;
 use Sofort\Event\SofortEvents;
+use Sofort\Event\TransactionCreateEvent;
 use Sofort\Event\TransactionDetailsEvent;
+use Sofort\Exception\InsufficientCredentialsException;
 use Sofort\Exception\SofortPaymentException;
 use Sofort\Model\PaymentRequestModel;
 use Sofort\Model\TransactionRequestModel;
@@ -32,6 +34,8 @@ use Symfony\Component\Validator\Validator;
  */
 class SofortManager
 {
+    /** @var string */
+    protected $config_key;
     /** @var \Sofort\Api\SofortCreateTransactionApi */
     protected $createApi;
     /** @var \Sofort\Api\SofortCreateTransactionApi */
@@ -46,21 +50,27 @@ class SofortManager
     /**
      * Object constructor
      *
-     * @param SofortCreateTransactionApi  $createApi
-     * @param SofortRequestTransactionApi $requestApi
-     * @param EventDispatcherInterface    $eventDispatcher
-     * @param Router                      $router
-     * @param Validator                   $validator
+     * @param EventDispatcherInterface $eventDispatcher
+     * @param Router                   $router
+     * @param Validator                $validator
      *
      * @internal param \Sofort\Api\SofortApi $api
      */
-    public function __construct(SofortCreateTransactionApi $createApi, SofortRequestTransactionApi $requestApi, EventDispatcherInterface $eventDispatcher, Router $router, Validator $validator)
+    public function __construct(EventDispatcherInterface $eventDispatcher, Router $router, Validator $validator)
     {
-        $this->createApi       = $createApi;
-        $this->requestApi      = $requestApi;
         $this->eventDispatcher = $eventDispatcher;
         $this->router          = $router;
         $this->validator       = $validator;
+    }
+
+    /**
+     * Sets config key
+     *
+     * @param string $key
+     */
+    public function setConfigKey($key)
+    {
+        $this->config_key = $key;
     }
 
     /**
@@ -69,17 +79,23 @@ class SofortManager
      * @param PaymentRequestModel $model
      *
      * @throws \Sofort\Exception\SofortPaymentException
+     * @throws \Sofort\Exception\InsufficientCredentialsException
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function createTransaction(PaymentRequestModel $model)
     {
         $this->validate($model);
 
-        $this->createApi->setSuccessUrl($this->router->generate('sofort.success', array('id' => '-TRANSACTION-'), true));
-        $this->createApi->setAbortUrl($this->router->generate('sofort.abort', array('id' => '-TRANSACTION-'), true));
-        $this->createApi->setNotificationUrl($this->router->generate('sofort.notification', array(), true));
+        if (!$this->config_key) {
+            throw new InsufficientCredentialsException();
+        }
+        $api = new SofortCreateTransactionApi($this->config_key);
 
-        $this->createApi
+        $api->setSuccessUrl($this->router->generate('sofort.success', array('id' => '-TRANSACTION-'), true));
+        $api->setAbortUrl($this->router->generate('sofort.abort', array('id' => '-TRANSACTION-'), true));
+        $api->setNotificationUrl($this->router->generate('sofort.notification', array(), true));
+
+        $api
             ->setCustomerProtection(true)
             ->setAmount($model->getAmount())
             ->setSenderAccount($model->getBankCode(), $model->getAccountNumber(), $model->getName())
@@ -91,13 +107,16 @@ class SofortManager
             ->setReason($model->getReason())
             ->setCurrencyCode($model->getCurrency());
 
-        $this->createApi->sendRequest();
+        $api->sendRequest();
 
-        if ($this->createApi->isError()) {
-            throw new SofortPaymentException($this->createApi->getError());
+        if ($api->isError()) {
+            throw new SofortPaymentException($api->getError());
         }
 
-        return new RedirectResponse($this->createApi->getPaymentUrl());
+        $event = new TransactionCreateEvent($api->getTransactionId(), $api->getPaymentUrl());
+        $this->eventDispatcher->dispatch(SofortEvents::CREATED, $event);
+
+        return $event->getResponse();
     }
 
     /**
@@ -106,20 +125,27 @@ class SofortManager
      * @param string $id
      *
      * @throws \Sofort\Exception\SofortPaymentException
-     * @return \Sofort\Api\SofortCreateTransactionApi|\Sofort\Api\SofortRequestTransactionApi
+     * @throws \Sofort\Exception\InsufficientCredentialsException
+     * @return SofortRequestTransactionApi
      */
     public function requestTransaction($id)
     {
-        $this->requestApi->addTransaction($id);
-        $this->requestApi->sendRequest();
 
-        if ($this->requestApi->isError()) {
-            throw new SofortPaymentException($this->requestApi->getError());
+        if (!$this->config_key) {
+            throw new InsufficientCredentialsException();
+        }
+        $api = new SofortRequestTransactionApi($this->config_key);
+
+        $api->addTransaction($id);
+        $api->sendRequest();
+
+        if ($api->isError()) {
+            throw new SofortPaymentException($api->getError());
         }
 
-        $this->eventDispatcher->dispatch(SofortEvents::DETAILS, new TransactionDetailsEvent($this->requestApi));
+        $this->eventDispatcher->dispatch(SofortEvents::DETAILS, new TransactionDetailsEvent($api));
 
-        return $this->requestApi;
+        return $api;
     }
 
     /**

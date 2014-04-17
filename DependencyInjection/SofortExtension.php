@@ -39,7 +39,7 @@ class SofortExtension extends Extension
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
 
-        $container->setParameter('sofort.key', $config['key']);
+        $container->setParameter('sofort.test_key', $config['test_key']);
     }
 
     /**

@@ -1,10 +1,4 @@
 services:
-  sofort.api.create:
-    class: Sofort\Api\SofortCreateTransactionApi
-    arguments: [%sofort.key%]
-  sofort.api.request:
-    class: Sofort\Api\SofortRequestTransactionApi
-    arguments: [%sofort.key%]
   sofort.manager:
     class: Sofort\Manager\SofortManager
-    arguments: [@sofort.api.create, @sofort.api.request, @event_dispatcher, @router, @validator]
+    arguments: [@event_dispatcher, @router, @validator]

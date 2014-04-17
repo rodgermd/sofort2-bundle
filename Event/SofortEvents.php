@@ -15,6 +15,7 @@ namespace Sofort\Event;
  */
 class SofortEvents
 {
+    const CREATED      = 'sofort.transaction.created';
     const SUCCESS      = 'sofort.success';
     const ABORT        = 'sofort.abort';
     const NOTIFICATION = 'sofort.notification';
