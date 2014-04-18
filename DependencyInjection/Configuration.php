@@ -32,7 +32,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
             ->scalarNode('test_key')->end()
-            ->scalarNode('default_host')->end();
+            ->scalarNode('default_host')->defaultNull()->end();
 
         return $treeBuilder;
     }
