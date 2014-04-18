@@ -17,7 +17,6 @@ use Sofort\Event\TransactionDetailsEvent;
 use Sofort\Exception\InsufficientCredentialsException;
 use Sofort\Exception\SofortPaymentException;
 use Sofort\Model\SofortPaymentRequestModel;
-use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Exception\ValidatorException;
@@ -211,6 +210,5 @@ class SofortManager
             throw new ValidatorException($errors->__toString());
         }
     }
-
 
 }

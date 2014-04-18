@@ -8,7 +8,6 @@
 
 namespace Sofort\Manager;
 
-
 use Sofort\Api\SofortCreateTransactionApi;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
@@ -93,4 +92,4 @@ class SofortRoutesManager
         return $url;
     }
 
-} 
+}
