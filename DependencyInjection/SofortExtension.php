@@ -40,6 +40,7 @@ class SofortExtension extends Extension
         $loader->load('services.yml');
 
         $container->setParameter('sofort.test_key', $config['test_key']);
+        $container->setParameter('sofort.default_host', $config['default_host']);
     }
 
     /**

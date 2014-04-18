@@ -21,15 +21,18 @@ class SofortRoutesManager
 {
     /** @var Router */
     protected $router;
+    protected $defaultHost;
 
     /**
      * Object constructor
      *
      * @param Router $router
+     * @param string $defaultHost
      */
-    public function __construct(Router $router)
+    public function __construct(Router $router, $defaultHost = null)
     {
-        $this->router = $router;
+        $this->router      = $router;
+        $this->defaultHost = $defaultHost;
     }
 
     /**
@@ -51,7 +54,7 @@ class SofortRoutesManager
      */
     public function generateSuccessUrl()
     {
-        return $this->router->generate('sofort.success', array('id' => '-TRANSACTION-'), true);
+        return $this->updateUrl($this->router->generate('sofort.success', array('id' => '-TRANSACTION-'), true));
     }
 
     /**
@@ -61,7 +64,7 @@ class SofortRoutesManager
      */
     public function generateAbortUrl()
     {
-        return $this->router->generate('sofort.abort', array('id' => '-TRANSACTION-'), true);
+        return $this->updateUrl($this->router->generate('sofort.abort', array('id' => '-TRANSACTION-'), true));
     }
 
     /**
@@ -71,7 +74,23 @@ class SofortRoutesManager
      */
     public function generateNotificationUrl()
     {
-        return $this->router->generate('sofort.notification', array('id' => '-TRANSACTION-'), true);
+        return $this->updateUrl($this->router->generate('sofort.notification', array('id' => '-TRANSACTION-'), true));
+    }
+
+    /**
+     * Updates url
+     *
+     * @param $url
+     *
+     * @return string
+     */
+    protected function updateUrl($url)
+    {
+        if ($this->defaultHost) {
+            $url = str_replace($this->router->getContext()->getHost(), $this->defaultHost, $url);
+        }
+
+        return $url;
     }
 
 } 

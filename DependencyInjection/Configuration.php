@@ -29,7 +29,10 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode    = $treeBuilder->root('sofort');
 
-        $rootNode->children()->scalarNode('test_key')->end();
+        $rootNode
+            ->children()
+            ->scalarNode('test_key')->end()
+            ->scalarNode('default_host')->end();
 
         return $treeBuilder;
     }
