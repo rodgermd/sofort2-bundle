@@ -21,7 +21,7 @@ class PaymentEvent extends Event
 {
     /** @var \Symfony\Component\HttpFoundation\Response */
     protected $response;
-    /** @var \Symfony\Component\HttpFoundation\Request  */
+    /** @var \Symfony\Component\HttpFoundation\Request */
     protected $request;
 
     /**
@@ -32,7 +32,6 @@ class PaymentEvent extends Event
     public function __construct(Request $request)
     {
         $this->request  = $request;
-        $this->response = new Response();
     }
 
     /**
@@ -43,5 +42,29 @@ class PaymentEvent extends Event
     public function getResponse()
     {
         return $this->response;
+    }
+
+    /**
+     * Sets Response
+     *
+     * @param \Symfony\Component\HttpFoundation\Response $response
+     *
+     * @return $this
+     */
+    public function setResponse($response)
+    {
+        $this->response = $response;
+
+        return $this;
+    }
+
+    /**
+     * Gets request
+     *
+     * @return Request
+     */
+    public function getRequest()
+    {
+        return $this->request;
     }
 }
