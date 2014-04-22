@@ -23,6 +23,8 @@ class PaymentEvent extends Event
     protected $response;
     /** @var \Symfony\Component\HttpFoundation\Request */
     protected $request;
+    /** @var string  */
+    protected $transactionId;
 
     /**
      * Object constructor
@@ -32,6 +34,7 @@ class PaymentEvent extends Event
     public function __construct(Request $request)
     {
         $this->request  = $request;
+        $this->transactionId = $request->get('id');
     }
 
     /**
@@ -66,5 +69,29 @@ class PaymentEvent extends Event
     public function getRequest()
     {
         return $this->request;
+    }
+
+    /**
+     * Sets TransactionId
+     *
+     * @param string $transactionId
+     *
+     * @return $this
+     */
+    public function setTransactionId($transactionId)
+    {
+        $this->transactionId = $transactionId;
+
+        return $this;
+    }
+
+    /**
+     * Gets TransactionId
+     *
+     * @return string
+     */
+    public function getTransactionId()
+    {
+        return $this->transactionId;
     }
 }

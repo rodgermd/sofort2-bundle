@@ -9,14 +9,17 @@
 namespace Sofort\Manager;
 
 use Sofort\Api\SofortCreateTransactionApi;
+use Sofort\Api\SofortNotificationApi;
 use Sofort\Api\SofortRequestTransactionApi;
 use Sofort\Event\PaymentEvent;
+use Sofort\Event\PaymentNotificationEvent;
 use Sofort\Event\SofortEvents;
 use Sofort\Event\TransactionCreateEvent;
 use Sofort\Event\TransactionDetailsEvent;
 use Sofort\Exception\InsufficientCredentialsException;
 use Sofort\Exception\SofortPaymentException;
 use Sofort\Model\SofortPaymentRequestModel;
+use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Exception\ValidatorException;
@@ -178,7 +181,12 @@ class SofortManager
      */
     public function dispatchNotification(Request $request)
     {
-        $event = $this->prepareEvent($request);
+        $api = new SofortNotificationApi($this->config_key);
+        $content = $request->getContent();
+
+        $event = new PaymentEvent($request);
+        $event->setTransactionId($api->getNotification($content));
+
         $this->eventDispatcher->dispatch(SofortEvents::NOTIFICATION, $event);
 
         return $event->getResponse();

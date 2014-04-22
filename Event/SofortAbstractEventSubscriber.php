@@ -65,7 +65,7 @@ abstract class SofortAbstractEventSubscriber implements EventSubscriberInterface
 
     /**
      * On notification
-     * Should modify the PaymentEvent response object
+     * Should modify the PaymentNotificationEvent response object
      *
      * @param PaymentEvent $event
      */
