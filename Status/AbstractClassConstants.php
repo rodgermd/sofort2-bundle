@@ -22,7 +22,7 @@ abstract class AbstractClassConstants
      */
     public static function getConstants()
     {
-        $reflection = new \ReflectionClass(__CLASS__);
+        $reflection = new \ReflectionClass(get_called_class());
 
         return $reflection->getConstants();
     }
