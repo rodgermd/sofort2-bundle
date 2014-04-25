@@ -27,25 +27,21 @@ class SofortPaymentRequestModel
 
     /**
      * @var string
-     * @Assert\NotNull
      */
     protected $accountNumber;
 
     /**
      * @var string
-     * @Assert\NotNull
      */
     protected $bankCode;
 
     /**
      * @var string
-     * @Assert\NotNull
      */
     protected $name;
 
     /**
      * @var string
-     * @Assert\NotNull
      * @Assert\Country
      */
     protected $country;
