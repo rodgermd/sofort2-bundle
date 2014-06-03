@@ -23,7 +23,7 @@ use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Exception\ValidatorException;
-use Symfony\Component\Validator\Validator;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class SofortManager
@@ -42,7 +42,7 @@ class SofortManager
     protected $eventDispatcher;
     /** @var SofortRoutesManager */
     protected $routesManager;
-    /** @var \Symfony\Component\Validator\Validator */
+    /** @var ValidatorInterface */
     protected $validator;
 
     /**
@@ -50,9 +50,9 @@ class SofortManager
      *
      * @param EventDispatcherInterface $eventDispatcher
      * @param SofortRoutesManager      $routesManager
-     * @param Validator                $validator
+     * @param ValidatorInterface       $validator
      */
-    public function __construct(EventDispatcherInterface $eventDispatcher, SofortRoutesManager $routesManager, Validator $validator)
+    public function __construct(EventDispatcherInterface $eventDispatcher, SofortRoutesManager $routesManager, ValidatorInterface $validator)
     {
         $this->eventDispatcher = $eventDispatcher;
         $this->routesManager   = $routesManager;
@@ -181,7 +181,7 @@ class SofortManager
      */
     public function dispatchNotification(Request $request)
     {
-        $api = new SofortNotificationApi($this->config_key);
+        $api     = new SofortNotificationApi($this->config_key);
         $content = $request->getContent();
 
         $event = new PaymentEvent($request);
