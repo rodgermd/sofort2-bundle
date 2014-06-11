@@ -33,7 +33,7 @@ sofort_controller:
 ```
 
 ### Optionally add test config key
-
+parameters.yml
 ``` yml
 sofort:
   test_key: 'XXX:XXX:XXXXXXXXXXXX'
