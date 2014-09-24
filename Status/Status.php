@@ -15,9 +15,9 @@ namespace Sofort\Status;
  */
 class Status extends AbstractClassConstants
 {
-    const LOSS     = 'loss';
-    const PENDING  = 'pending';
+    const LOSS = 'loss';
+    const PENDING = 'pending';
     const RECEIVED = 'received';
     const REFUNDED = 'refunded';
-
+    const UNTRACEABLE = 'untraceable';
 }
