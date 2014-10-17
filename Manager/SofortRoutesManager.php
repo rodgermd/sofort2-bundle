@@ -20,6 +20,7 @@ class SofortRoutesManager
 {
     /** @var Router */
     protected $router;
+    /** @var null|string */
     protected $defaultHost;
 
     /**

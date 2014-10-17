@@ -53,10 +53,6 @@ class PaymentTest extends WebTestCase
         $errors = $this->validator->validate($model);
 
         $this->assertTrue($this->hasError('amount', $errors));
-        $this->assertTrue($this->hasError('accountNumber', $errors));
-        $this->assertTrue($this->hasError('bankCode', $errors));
-        $this->assertTrue($this->hasError('name', $errors));
-        $this->assertTrue($this->hasError('country', $errors));
         $this->assertTrue($this->hasError('reason', $errors));
 
         // test amount
