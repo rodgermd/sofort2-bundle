@@ -109,7 +109,6 @@ SofortLibTransactionData methods available:
 * getRecipientIban
 * getSenderHolder
 * getSenderAccountNumber
-* getSenderHolder
 * getSenderBankCode
 * getSenderCountryCode
 * getSenderBankName

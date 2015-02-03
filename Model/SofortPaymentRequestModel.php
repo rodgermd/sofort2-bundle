@@ -78,6 +78,11 @@ class SofortPaymentRequestModel
      * @var bool
      */
     protected $protection = true;
+    
+    /**
+     * @var array
+     */
+    protected $userVariable = array();
 
     /**
      * Sets AccountNumber
@@ -367,4 +372,25 @@ class SofortPaymentRequestModel
         return $this->reason;
     }
 
+    /**
+     * Sets UserVariable
+     *
+     * @param array $userVariable
+     *
+     * @return SofortPaymentRequestModel
+     */
+    public function setUserVariable($userVariable) {
+        $this->userVariable = $userVariable;
+        
+        return $this;
+    }
+    
+    /**
+     * Gets UserVariable
+     *
+     * @return array
+     */
+    public function getUserVariable() {
+        return $this->userVariable;
+    }
 }
