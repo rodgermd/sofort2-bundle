@@ -99,7 +99,8 @@ class SofortManager
             ->setSenderBic($model->getBic())
             ->setSenderIban($model->getIban())
             ->setReason($model->getReason())
-            ->setCurrencyCode($model->getCurrency());
+            ->setCurrencyCode($model->getCurrency())
+            ->setUserVariable($model->getUserVariable());
 
         $api->sendRequest();
 
