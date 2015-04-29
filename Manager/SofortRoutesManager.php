@@ -44,7 +44,11 @@ class SofortRoutesManager
     {
         $api->setSuccessUrl($this->generateSuccessUrl());
         $api->setAbortUrl($this->generateAbortUrl());
-        $api->setNotificationUrl($this->generateNotificationUrl());
+        $notificationUrl = $this->generateNotificationUrl();
+        if (gethostbyname(parse_url($notificationUrl, PHP_URL_HOST)) != '127.0.0.1') {
+            // the notification url must be visible for sofort
+            $api->setNotificationUrl($this->generateNotificationUrl());
+        }
     }
 
     /**
