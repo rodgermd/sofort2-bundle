@@ -12,18 +12,16 @@ use Sofort\Api\SofortCreateTransactionApi;
 use Sofort\Api\SofortNotificationApi;
 use Sofort\Api\SofortRequestTransactionApi;
 use Sofort\Event\PaymentEvent;
-use Sofort\Event\PaymentNotificationEvent;
 use Sofort\Event\SofortEvents;
 use Sofort\Event\TransactionCreateEvent;
 use Sofort\Event\TransactionDetailsEvent;
 use Sofort\Exception\InsufficientCredentialsException;
 use Sofort\Exception\SofortPaymentException;
 use Sofort\Model\SofortPaymentRequestModel;
-use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Exception\ValidatorException;
-use Symfony\Component\Validator\ValidatorInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class SofortManager
